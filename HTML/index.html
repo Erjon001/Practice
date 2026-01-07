@@ -4,36 +4,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PROJECT</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>MY PROJECT</h1>
+    <header class="header">
+      <h1 id="main-title">MY PROJECT</h1>
       <h2>This is my project.</h2>
-      <p>This is the first paragraph.</p>
-      <p>This is the second paragraph.</p>
+      <p>This project is designed to showcase my web development skills.</p>
+      <p>
+        In this project I am learning HTML, CSS, and JavaScript to build
+        interactive web pages.
+      </p>
     </header>
 
     <main>
-      <h3>Features</h3>
-      <ul>
-        <li>Feature 1</li>
-        <li>Feature 2</li>
-        <li>Feature 3</li>
-      </ul>
+      <div class="features-functions">
+        <section class="card" id="feat">
+          <h3>Features</h3>
+          <ul>
+            <li>Modern Design</li>
+            <li>Responsive Layout</li>
+            <li>Interactive Elements</li>
+            <li>Easy Navigation</li>
+            <li>Fast Loading</li>
+            <li>Cross-Browser Compatibility</li>
+          </ul>
+        </section>
 
-      <section>
-        <h3>How it works</h3>
-        <ol>
-          <li>Step 1</li>
-          <li>Step 2</li>
-          <li>Step 3</li>
-        </ol>
-      </section>
-
-      <section>
+        <section class="card" id="func">
+          <h3>How it works</h3>
+          <ol>
+            <li>HTML structure</li>
+            <li>CSS styling</li>
+            <li>JavaScript functionality</li>
+            <li>User Interaction</li>
+            <li>Data Handling</li>
+            <li>Deployment</li>
+          </ol>
+        </section>
+      </div>
+      <section class="card">
         <h3>Similar websites</h3>
+        <div class="nav">
         <nav>
-          <a href="https://www.wikipedia.org" target="_blank">Wikipedia</a>
+          <a class="links" href="https://www.wikipedia.org" target="_blank"
+            >Wikipedia</a
+          >
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7y8ebjxqKI0YfI_r_vcVh2KdwGvkHghm4zA&s"
             alt="Wikipedia Logo"
@@ -41,17 +57,23 @@
             height="20" />
           <br />
 
-          <a href="https://www.github.com" target="_blank">GitHub</a>
+          <a class="links" href="https://www.github.com" target="_blank"
+            >GitHub</a
+          >
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/250px-GitHub_Invertocat_Logo.svg.png"
             alt="GitHub Logo"
             width="20"
             height="20" />
           <br />
+        </nav>
+        </div>
           <p>
             This app is inspired by tools like
 
-            <a href="https://www.mozilla.com" target="_blank">Mozilla</a>
+            <a class="links" href="https://www.mozilla.com" target="_blank"
+              >Mozilla</a
+            >
             <img
               src="https://store-images.s-microsoft.com/image/apps.7279.14473293538384797.bcb417dc-ffbe-444e-9589-e6a25f04ad52.156eed19-aa35-4e69-96a7-c11abd7f887d"
               alt="Mozilla Logo"
@@ -60,7 +82,9 @@
           </p>
           <p>
             I'm learning web development from
-            <a href="https://www.nextleap.al" target="_blank">NextLeap</a>
+            <a class="links" href="https://www.nextleap.al" target="_blank"
+              >NextLeap</a
+            >
             <img
               src="https://media.licdn.com/dms/image/v2/D560BAQEpJrxxdCWb0Q/company-logo_200_200/B56ZowemlqIcAI-/0/1761749920565/nextleapsoft_logo?e=2147483647&v=beta&t=LtOc_On85pi-YtvrPk6_S4muzdExY5lkPCQCj1Hjpdk"
               alt="NextLeap Logo"
@@ -75,10 +99,10 @@
         In a real app, the form "action" and "method" would tell the browser
         where and how to send this data to a server.
       -->
-      <section>
-        <h2>Join the Waitlist</h2>
+      <section class="card">
+        <h2>Join the Wait List</h2>
         <p>Sign up to be notified when we launch!</p>
-        <form>
+        <form class="form">
           <label for="email">Email:</label>
           <input
             type="email"
@@ -86,17 +110,16 @@
             name="email"
             placeholder="you@example.com"
             required />
-          <button type="submit">Join Waitlist</button>
+          <button type="submit">Join</button>
         </form>
       </section>
     </main>
-    <br />
 
     <footer>
       <nav>
-        <a href="about.html">About Me</a>
+        <a class="links" href="about.html">About Me</a>
       </nav>
-      <p>&copy; 2026 My Project</p>
+      <p id="footer">&copy; 2026 My Project</p>
     </footer>
   </body>
 </html>
