@@ -64,6 +64,7 @@ h2 {
   font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 h3 {
@@ -126,10 +127,18 @@ li {
   color: var(--accent);
   text-decoration: none;
   font-weight: 500;
+  font-family: var(--font-primary);
 }
 
 .links:hover {
   text-decoration: underline;
+}
+
+.links_wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 button {
