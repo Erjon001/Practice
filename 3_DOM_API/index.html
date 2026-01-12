@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style src="style.css"></style>
+    <!--<style src="styles.css"></style>-->
     <title>Document</title>
   </head>
   <body>
@@ -18,11 +18,18 @@
         required />
       <button type="submit">Add Task</button>
     </form>
-
+    <div id="filters">
+      <button data-filter="all" class="filter-button">All</button>
+      <button data-filter="active" class="filter-button">Active</button>
+      <button data-filter="completed" class="filter-button">Completed</button>
+    </div>
     <ul id="task-list">
       <!-- Tasks will be rendered here -->
     </ul>
-
-    <script src="main.js"></script>
+    <p id="empty-message" style="color: #777">
+      No tasks yet. Add your first one above!
+    </p>
+    <!--<script src="main.js"></script>-->
+    <script src="adv.js"></script>
   </body>
 </html>
