@@ -38,30 +38,34 @@ const deleteTaskById = (id) => {
   tasks.splice(index, 1);
 };
 
-//
+//Visible tasks
+const getVisibleTasks = () => {
+  if (currentFilter === "active") {
+    return tasks.filter((task) => task.completed === false);
+  }
+  if (currentFilter === "completed") {
+    return tasks.filter((task) => task.completed === true);
+  }
+
+  return tasks;
+};
 
 // Render task
 const renderTasks = () => {
   taskList.innerHTML = "";
 
-  if (tasks.length === 0) {
+  const visibleTasks = getVisibleTasks();
+
+  //Empty message
+  if (visibleTasks.length === 0) {
     emptyMessage.style.display = "block";
   } else {
     emptyMessage.style.display = "none";
   }
 
-  tasks.forEach((task) => {
+  visibleTasks.forEach((task) => {
     //List Tasks
     const li = document.createElement("li");
-
-    //Styling for checked Tasks
-    const updateCompleted = () => {
-      if (task.completed) {
-        li.setAttribute("style", "text-decoration: line-through;");
-      } else {
-        li.setAttribute("style", "text-decoration: none;");
-      }
-    };
 
     //Including an id and storing it
     li.dataset.id = String(task.id);
@@ -81,15 +85,16 @@ const renderTasks = () => {
     deleteButton.textContent = "Delete";
     deleteButton.classList.add("delete-button");
 
-    //Logic for checkbox
-    checkbox.addEventListener("change", () => {
-      task.completed = checkbox.checked;
-      updateCompleted();
-    });
+    //Styling for checked Tasks
+    const updateCompleted = () => {
+      if (task.completed) {
+        li.setAttribute("style", "text-decoration: line-through;");
+      } else {
+        li.setAttribute("style", "text-decoration: none;");
+      }
+    };
 
-    if (task.completed) {
-      li.classList.add("completed");
-    }
+    updateCompleted();
 
     li.prepend(checkbox);
     li.appendChild(span);
@@ -154,4 +159,13 @@ filtersContainer.addEventListener("click", (event) => {
   if (!event.target.matches(".filter-button")) return;
 
   currentFilter = event.target.dataset.filter;
+
+  document.querySelectorAll(".filter-button").forEach((button) => {
+    if (button.dataset.filter === currentFilter) {
+      button.classList.add("active-filter");
+    } else {
+      button.classList.remove("active-filter");
+    }
+  });
+  renderTasks();
 });
