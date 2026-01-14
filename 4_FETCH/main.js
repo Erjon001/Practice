@@ -1,9 +1,13 @@
+const baseURL = "https://jsonplaceholder.typicode.com/todos";
+
 let tasks = [];
 
 const form = document.querySelector("#task-form");
 const taskInput = document.querySelector("#task-input");
 const taskList = document.querySelector("#task-list");
 const errorMessage = document.querySelector("#error-message");
+const errorBox = document.querySelector("#error");
+const loadingBox = document.querySelector("#loading");
 
 //Add Task
 const addTask = (title) => {
@@ -15,6 +19,7 @@ const addTask = (title) => {
   tasks.push(task);
 };
 
+//Delete Task
 const deleteTask = (index) => {
   if (index < 0 || index >= tasks.length) {
     console.warn("Invalid index:", index);
@@ -23,6 +28,54 @@ const deleteTask = (index) => {
   tasks.splice(index, 1);
 };
 
+//Build URL
+const buildUrl = (limit) => {
+  return `${baseURL}?_limit=${limit}`;
+};
+
+const url = buildUrl(7);
+
+//Loading box
+const setLoading = (isLoading) => {
+  if (!loadingBox) return;
+  loadingBox.textContent = isLoading ? "Loading tasks..." : "";
+};
+
+//Error Box
+const setError = (message) => {
+  if (!errorBox) return;
+  errorBox.textContent = message;
+};
+
+//Loading tasks from API
+
+const loadTasksFromApiAsync = async () => {
+  try {
+    setError("");
+    setLoading(true);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    tasks = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      completed: Boolean(item.completed),
+    }));
+    renderTasks();
+  } catch (error) {
+    console.log(`Failed to load tasks ${error}`);
+    setError(`Could not load tasks. Please try again.`);
+  } finally {
+    setLoading(false);
+  }
+};
+
+//Render Task
 const renderTasks = () => {
   taskList.innerHTML = "";
 
@@ -86,3 +139,5 @@ form.addEventListener("submit", (event) => {
   taskInput.value = "";
   taskInput.focus();
 });
+
+loadTasksFromApiAsync();
