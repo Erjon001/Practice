@@ -104,10 +104,7 @@ const renderTasks = () => {
   });
 };
 
-//Submit eventListener
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-
+const submit = () => {
   const title = taskInput.value.trim();
 
   if (title === "") {
@@ -123,6 +120,13 @@ form.addEventListener("submit", (event) => {
 
   taskInput.value = "";
   taskInput.focus();
+};
+
+//Submit eventListener
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  submit();
 });
 
 //Universal eventListener for "click" event

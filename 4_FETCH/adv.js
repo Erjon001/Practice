@@ -52,16 +52,6 @@ const apiRequest = async (path, options = {}) => {
   return response.text();
 };
 
-try {
-  const data = await apiRequest("/todos?_limit=5");
-  tasks = data;
-  renderTasks();
-} catch (error) {
-  if (error.status >= 500) setError("Server error");
-  else if (error.status >= 400) setError("Request error");
-  else setError("Network problem");
-}
-
 //Delete helper(API)
 const deleteTasksOnServer = async (id) => {
   await apiRequest(`/todos/${id}`, {
@@ -114,7 +104,9 @@ const loadTasksFromAPI = async () => {
     renderTasks();
   } catch (error) {
     console.error(`Failed to load tasks`, error);
-    setError("Could not load tasks");
+    if (error.status >= 500) setError("Server error");
+    else if (error.status >= 400) setError("Request error");
+    else setError("Network problem");
   } finally {
     setLoading(false);
   }
