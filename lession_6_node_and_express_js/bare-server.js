@@ -68,9 +68,17 @@ const server = http.createServer((req, res) => {
     const filePath = path.join(publicDir, "page.html");
     fs.readFile(filePath, "utf-8", (error, content) => {
       if (error) {
-        console.error("Error reading file:", err);
+        console.error("Error reading file:", error);
+        res.statusCode = 500;
+        res.setHeader("Content-Type", "text/plain; charset=utf-8");
+        res.end("Internal Server Error");
+        return;
       }
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.end(content);
     });
+    return;
   }
 
   res.statusCode = 404;
