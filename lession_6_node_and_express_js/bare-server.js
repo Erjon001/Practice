@@ -81,6 +81,42 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (req.url === "/slow" && req.method === "GET") {
+    const filePath = path.join(publicDir, "page.html");
+    try {
+      console.time("slow");
+      const syncContent = fs.readFileSync(filePath, "utf-8");
+      console.timeEnd("slow");
+
+      console.log("Synchronous file read completed", syncContent);
+    } catch (error) {
+      console.error("Error during synchronous file read:", error);
+    }
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.end("Synchronous file read attempted. Check server logs.\n");
+    return;
+  }
+
+  if (req.url === "/fast" && req.method === "GET") {
+    const filePath = path.join(publicDir, "page.html");
+    console.time("fast");
+    fs.readFile(filePath, "utf-8", (error, asyncContent) => {
+      console.log("Callback");
+      if (error) {
+        res.statusCode = 500;
+        res.end("Internal Server Error");
+        return;
+      }
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      res.end("Asynchronous file read completed. Check server logs.\n");
+      console.log("Asynchronous file read completed", asyncContent);
+    });
+    console.timeEnd("fast");
+    return;
+  }
+
   res.statusCode = 404;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.end(JSON.stringify({ error: "Not found" }));
