@@ -12,6 +12,7 @@ const sendError = (res, statusCode, message) => {
   res.status(statusCode).json({ error: message });
 };
 
+//Get all tasks, with optional filtering by completion status
 router.get("/tasks", (req, res) => {
   const { completed } = req.query;
   let result = tasks;
@@ -23,6 +24,7 @@ router.get("/tasks", (req, res) => {
   res.json(result);
 });
 
+//Create a new task
 router.post("/tasks", (req, res) => {
   const { title } = req.body;
 
@@ -39,6 +41,7 @@ router.post("/tasks", (req, res) => {
   res.status(201).json(newTask);
 });
 
+//Delete a task by ID
 router.delete("/tasks/:id", (req, res) => {
   const id = Number(req.params.id);
 
@@ -56,6 +59,7 @@ router.delete("/tasks/:id", (req, res) => {
   res.status(204).json("Task deleted successfully!");
 });
 
+//Update a task's completion status by ID
 router.patch("/tasks/:id", (req, res) => {
   const id = Number(req.params.id);
 
