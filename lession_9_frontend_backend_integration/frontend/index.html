@@ -2,15 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--<style src="styles.css"></style>-->
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Task List</title>
   </head>
   <body>
     <h1>My Task List</h1>
-
+    <form id="search-form">
+      <input type="search" id="search-input" placeholder="Search tasks..." />
+      <button id="search-button" type="submit">Search</button>
+    </form>
     <form id="task-form">
-      <p id="error-message" style="color: red"></p>
+      <p id="error-message"></p>
       <input
         id="task-input"
         type="text"
@@ -18,11 +22,7 @@
         required />
       <button type="submit">Add Task</button>
     </form>
-    <!-- <div id="filters">
-      <button data-filter="all" class="filter-button">All</button>
-      <button data-filter="active" class="filter-button">Active</button>
-      <button data-filter="completed" class="filter-button">Completed</button>
-    </div> -->
+
     <div id="error"></div>
     <div id="loading"></div>
     <ul id="task-list">

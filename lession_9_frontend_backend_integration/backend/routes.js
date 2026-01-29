@@ -1,3 +1,4 @@
+const e = require("express");
 const express = require("express");
 const router = express.Router();
 
@@ -14,15 +15,26 @@ const sendError = (res, statusCode, message) => {
 
 //Get all tasks, with optional filtering by completion status
 router.get("/tasks", (req, res) => {
-  console.log(tasks);
   const { completed } = req.query;
+  const searchQuery = req.query.search;
+
   let result = tasks;
+
+  // Filter by completion status if query parameter is provided
   if (completed === "true") {
-    result = tasks.filter((task) => task.completed === true);
+    result = result.filter((task) => task.completed === true);
   } else if (completed === "false") {
-    result = tasks.filter((task) => task.completed === false);
+    result = result.filter((task) => task.completed === false);
   }
-  res.json(result);
+
+  //Search by title if query parameter is provided
+  if (searchQuery) {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    result = result.filter((task) =>
+      task.title.toLowerCase().includes(normalizedQuery),
+    );
+  }
+  res.status(200).json(result);
 });
 
 //Create a new task

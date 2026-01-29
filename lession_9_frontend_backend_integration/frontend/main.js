@@ -7,6 +7,9 @@ const taskList = document.querySelector("#task-list");
 const form = document.querySelector("#task-form");
 const taskInput = document.querySelector("#task-input");
 const submitButton = form.querySelector("button[type=submit]");
+const searchForm = document.querySelector("#search-form");
+const searchInput = document.querySelector("#search-input");
+const searchButton = document.querySelector("#search-button");
 
 let tasks = [];
 
@@ -127,6 +130,25 @@ form.addEventListener("submit", async (event) => {
   console.log(title);
 });
 
+searchForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const query = searchInput.value.trim();
+  try {
+    setError("");
+    setLoading(true);
+
+    const response = await apiRequest(`?search=${encodeURIComponent(query)}`);
+    tasks = response;
+    renderTasks();
+  } catch (error) {
+    console.error("Failed to load tasks", error);
+    setError("Could not load tasks.");
+  } finally {
+    setLoading(false);
+  }
+});
+
+//Update task completed(UI)
 const updateTaskCompleted = async (id, completed) => {
   setError("");
   try {
